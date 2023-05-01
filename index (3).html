@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obondium Workspace</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Include the Font Awesome stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+
+
+  <style>
+    /* Reset some global variables */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Define other styles as needed */
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-y: scroll;
+
+    }
+
+    h1 {
+      color: orange;
+      text-align: center;
+      width: 100%;
+      font-size: 48px / 1.5;
+      /* add some bottom margin to create spacing between the heading and the content */
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: azure;
+      padding: 10px;
+      font-weight: 500;
+      text-align: center
+    }
+
+    li {
+      font-size: 18px;
+      line-height: 1.2;
+      color: darkgray;
+      margin-bottom: 20px;
+
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: medium;
+      line-height: 1.3;
+      color: darkgreen;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+
+    main {
+
+      background-color: #eee;
+      /* set initial background color to a light grey */
+      transition: background-color 0.5s ease-in-out;
+      /* add transition effect to smoothly change background color */
+
+      padding: 10px;
+      border-radius: 5px;
+      /* add some border radius to soften the edges of the content area */
+    }
+
+    section {
+      border-radius: 10px;
+      margin: 75px 0;
+      padding: 1px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border: 1px solid #ccc;
+      transition: all 0.7s ease-in-out;
+    }
+
+
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section {
+      padding: 20px;
+      margin: 10px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .section:hover {
+      transform: translateY(-10px);
+    }
+
+    .section:active {
+      transform: translateY(-5px);
+    }
+
+
+
+
+
+
+
+
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary {
+      list-style: none;
+    }
+
+    summary::before {
+      content: "Open";
+      color: gainsboro;
+      font-size: 24px;
+      font-weight: bold;
+      float: center;
+      color: darkgreen;
+      transition: transform 0.2s ease-in-out;
+      transform-origin: center;
+    }
+
+    details[open] summary::before {
+      content: "Close";
+      transform: rotate(0deg);
+      margin-top: 0;
+    }
+
+    summary:hover::before,
+    details[open] summary::before {
+      color: blue;
+    }
+
+    summary:focus::before {
+      outline: none;
+      color: #1E90FF;
+    }
+
+    summary::-moz-focus-inner {
+      border: 0;
+    }
+
+    summary {
+      cursor: pointer;
+    }
+
+    summary:focus {
+      outline: none;
+    }
+
+    summary::-moz-focusring {
+      outline: 1px dotted;
+      outline-offset: -1px;
+    }
+
+    details {
+      position: relative;
+    }
+
+    details .bee {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background-color: #F5DEB3;
+      display: none;
+    }
+
+    details[open] .bee {
+      display: block;
+      animation: slidein 0.2s ease-in-out;
+    }
+
+    @keyframes slidein {
+      from {
+        transform: translateY(50px);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    details[open]>* {
+      animation: fadein 0.2s ease-in-out;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: black;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+    }
+
+    .logo-container {
+      display: flex;
+      width: 50%;
+      align-items: center;
+      gap: 2px;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      border-right: 2px solid lightblue;
+    }
+
+    .logo-container img {
+      background-color: darkorange;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    #logo-name {
+      color: ghostwhite;
+      width: 60%;
+      padding-left: 10px;
+      font-size: 48px;
+      letter-spacing: 2px;
+      padding-right: 30px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      top: 0;
+      right: 0;
+      width: calc(50% - 10px);
+      background-color: #000;
+      padding: 20px 0px;
+      transform: translateX(0);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      /* or use "auto" */
+    }
+
+    nav ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      flex-wrap: wrap;
+      /* allow for wrapping */
+    }
+
+    nav li {
+      margin: 5px;
+      padding-right: 10px;
+      border-right: 2px solid white;
+    }
+
+    nav a {
+      color: #fff;
+      font-size: 24px;
+      text-decoration: none;
+    }
+
+    input[type="checkbox"].nav-toggle {
+      display: none;
+    }
+
+
+    @media (max-width: 768px) {
+      header {
+        width: 100%
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 60%;
+
+      }
+
+      .logo-container img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+      }
+
+
+      #logo-name {
+        color: ghostwhite;
+        padding: 10px 5px;
+        font-size: 24px;
+        letter-spacing: 1px;
+        border: none;
+      }
+
+      /* Hide the navigation links by default */
+      nav {
+        position: fixed;
+        top: 0;
+        right: -200px;
+        /* updated to start from the right side */
+        height: 450px;
+        width: 200px;
+        background-color: #333;
+        transition: all 0.3s ease-in-out;
+        border-radius: 10px;
+      }
+
+      nav ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      nav li {
+        border: none;
+      }
+
+      /* Style the hamburger icon */
+      .nav-toggle-label {
+        display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        user-select: none;
+        z-index: 1;
+      }
+
+      .nav-toggle-label span {
+        display: block;
+        height: 4px;
+        width: 4px;
+        margin-bottom: 3px;
+        background: #fff;
+        border-radius: 3px;
+        opacity: 1;
+        transition: all 0.25s ease-in-out;
+      }
+
+      /* Rotate the first and third spans on click to create an X shape */
+      .nav-toggle:checked~.nav-toggle-label span:nth-child(1) {
+        transform: rotate(45deg) translate(2px, 2px);
+      }
+
+      .nav-toggle:checked~.nav-toggle-label span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav-toggle:checked~.nav-toggle-label span:nth-child(3) {
+        transform: rotate(-45deg) translate(2px, -2px);
+      }
+
+      /* Show the navigation links when the toggle button is checked */
+      .nav-toggle:checked~nav {
+        right: 0;
+        /* updated to reveal the menu from the right side */
+      }
+
+      /* Hide the toggle label when the navigation menu is open */
+      .nav-toggle:checked~.nav-toggle-label {
+        display: none;
+      }
+
+      /* Style the navigation links */
+      nav a {
+        display: block;
+        text-align: center;
+        margin: 10px 20px;
+        font-size: 18px;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary {
+      list-style: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .label {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 100%);
+      font-size: 12px;
+      font-weight: bold;
+      color: #888;
+      transition: all 0.2s ease-in-out;
+    }
+
+    details[open] .label {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+
+    .content {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      transition: all 0.2s ease-in-out;
+    }
+
+    details[open] .content {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    summary:focus .label {
+      color: #1E90FF;
+    }
+
+    summary:focus+.content {
+      border-color: #1E90FF;
+    }
+
+    summary:focus .label,
+    details[open] .label {
+      bottom: auto;
+      top: 0;
+      transform: translate(-50%, -100%);
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      summary::before {
+        left: 5px;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+      }
+    }
+
+
+
+
+    #hero {
+      background-color: darkorange;
+      text-align: center;
+      margin-bottom: px;
+      background-repeat: no-repeat;
+
+    }
+
+    #hero h1 {
+      font-size: 40px;
+      margin: 40px 0;
+      color: #ffffcc;
+    }
+
+    #hero h3 {
+      font-size: 24px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      color: #6A5ACD;
+    }
+
+    #hero p {
+      font-size: 18px;
+      line-height: 28px;
+      color: #666666;
+    }
+
+    #hero div {
+      margin-top: 20px;
+      padding: 40px;
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #hero div:first-of-type {
+      margin-top: 0;
+    }
+
+    #hero div:last-of-type {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      #hero h1 {
+        font-size: 32px;
+      }
+
+      #hero h3 {
+        font-size: 20px;
+      }
+
+      #hero p {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      #hero div {
+        padding: 20px;
+      }
+    }
+
+
+
+    #our-project {
+      background-color: navy;
+      background-image: url("/Obondium Workspace /obondiumlogo.jpg");
+      padding: 20px 5px;
+      margin-bottom: px;
+    }
+
+    #our-project h1 {
+      color: darkorange;
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    #our-project h3 {
+      color: white;
+      font-size: 24px;
+    }
+
+    #countdown-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px;
+    }
+
+    .countdown-item {
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 px;
+    }
+
+    .countdown-value {
+      font-size: 24px;
+      color: orangered;
+      font-weight: bold;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .countdown-label {
+      text-transform: uppercase;
+      font-size: 14px;
+      padding: 10px;
+      color: yellow;
+    }
+
+    #our-project .content {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #our-project h2 {
+      font-size: 2rem;
+      margin: 20px 0;
+    }
+
+    #our-project p {
+      color: darkgreen;
+      text-align: center;
+      font-size: 1.3rem;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    #our-project ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #our-project li strong {
+      position: relative;
+      padding-left: 10px;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      font-weight: 700;
+      color: orange;
+      margin-bottom: 20px;
+    }
+
+    #our-project li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: slategray;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    #our-project li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: green;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.3s ease-in-out;
+    }
+
+    #our-project li:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .quotes-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      margin: 40px auto;
+      max-width: 800px;
+    }
+
+    .quote {
+      width: 40%;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: gainsboro;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .quote:hover {
+      transform: scale(1.05);
+    }
+
+    .quote p {
+      color: darkblue;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .quote cite {
+      color: black;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .quote {
+        width: 80%;
+      }
+    }
+
+
+
+    #best-regards {
+      font-size: 24px;
+      margin-top: 30px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+
+    /* Style for the join-us-form section */
+    #join-us {
+      margin: 40px 0;
+      padding: 40px 10px;
+      justify-content: center;
+      background-color: black;
+    }
+
+    #join-us .join-us-details h2 {
+      text-align: center;
+      color: darkorange;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    #join-us .join-us-details h3 {
+      color: grey;
+      font-size: 1.5rem;
+      line-height: 2;
+      margin: 20px 0;
+    }
+
+    #join-us .join-us-details p {
+      color: grey;
+      font-size: 1.5rem;
+      line-height: 2;
+      margin-bottom: 20px;
+      letter-spacing: 1.2px;
+    }
+
+    .join-us-form {
+      padding: 30px 10px;
+      background-color: gainsboro;
+      border: 1px solid #ccc;
+    }
+
+    /* Style for the form label */
+    .join-us-form label {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 24px;
+      letter-spacing: 1.2px;
+    }
+
+    /* Style for the form input fields */
+    .join-us-form input[type="text"],
+    .join-us-form input[type="email"],
+    .join-us-form input[type*="tel"],
+    .join-us-form textarea {
+      padding: 10px;
+      font-size: 16px;
+      line-height: 1.2;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      width: 75%;
+      margin-bottom: 5px;
+    }
+
+    .join-us-form input[type="text"],
+    .join-us-form input[type="email"],
+    .join-us-form textarea {
+      margin: 10px 10%;
+    }
+
+
+    /* Style for the phone input container */
+    .phone-input-container {
+      width: ;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+    }
+
+    .phone-input-container #country-code {
+      background-color: azure;
+      width: 25%;
+    }
+
+    .phone-input-container #phone-number {
+      width: 50%;
+    }
+
+
+    /* Style for the submit button */
+    .join-us-form button[type="submit"] {
+      margin: 20px 20%;
+      background-color: green;
+      color: white;
+      letter-spacing: 4px;
+      font-size: 18px;
+      font-weight: 700;
+      height: 50px;
+      width: 50%;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* Style for the success and error messages */
+    .join-us-message {
+      transition: opacity 0.3s ease;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .join-us-message p {
+      font-size: 1.5rem;
+      line-height: 2;
+      margin-bottom: 20px;
+      margin: 0;
+    }
+
+    /* Hide the messages by default */
+    .join-us-message.hidden {
+      display: none;
+      opacity: 0;
+    }
+
+    /* Style for the success message */
+    .join-us-message.success-message {
+      background-color: seagreen;
+      color: white;
+      border-color: #c3e6cb;
+    }
+
+    /* Style for the error message */
+    .join-us-message.error-message {
+      background-color: red;
+      color: white;
+      border-color: #f5c6cb;
+    }
+
+    /* Style for the resubmission message */
+    .join-us-message.resubmission-message {
+      background-color: blueviolet;
+      color: white;
+      border-color: #ebccd1;
+    }
+
+
+
+
+    #about-us {
+      background-color: #f8f8f8;
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    #about-us h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: green;
+    }
+
+    #about-us #about-us-intro {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-bottom: 0px;
+      color: grey;
+      font-weight: 800;
+    }
+
+
+    #about-us p {
+      font-size: 16px;
+      line-height: 1.2;
+      margin-bottom: 0px;
+      color: black;
+      font-weight: 600;
+    }
+
+    #about-us a {
+      font-size: 16px;
+      line-height: 1.2;
+      margin-bottom: 0px;
+      color: blue;
+    }
+
+
+    .team-members {
+      max-width: 900px;
+      margin: 10px auto;
+    }
+
+    .team-members h3 {
+      font-size: 1.4em;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .team-members ul {
+      list-style: none;
+      padding: 30px 0;
+      margin: 0;
+    }
+
+
+    .team-members li {
+      display: inline-block;
+      word-wrap: break-word;
+      margin: 20px 0;
+      vertical-align: top;
+      width: 250px;
+      height: 250px height: auto;
+      background-color: azure;
+      border: 1px solid #ddd;
+      padding: 20px 0;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .team-members li img {
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+
+
+    .team-members li h4 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: goldenrod;
+    }
+
+    .team-members li #rank {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: blue;
+    }
+
+    .team-members li #info {
+      color: grey;
+      font-size: 18px;
+    }
+
+    .team-members li div.link {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease-out;
+    }
+
+    .team-members li p {
+      font-size: 2px;
+      line-height: 1.3;
+      margin-bottom: 10px;
+      color: red;
+    }
+
+    .team-members li p a {
+      color: green;
+      text-decoration: none;
+    }
+
+    .team-members li div.link.expanded {
+      max-height: 500px;
+    }
+
+
+    #updates {
+      background-color: black;
+      padding: 75px 10px;
+    }
+
+    #updates h2 {
+      color: orange;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 24px;
+    }
+
+    #updates li {
+      color: lavender;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+
+    #updates .accordion-header {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: grey;
+    }
+
+    #updates .accordion-header.active {
+      color: goldenrod;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    #updates .accordion-content {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    #updates .accordion-content p {
+      margin-bottom: 10px;
+      color: greenyellow;
+    }
+
+    #updates .accordion-content ul {
+      margin: 30px 0;
+      color: black;
+    }
+
+    #updates .accordion-content li {
+      margin-bottom: 20px;
+      list-style-type: circle;
+      list-style-position: inside;
+
+    }
+
+    #updates .accordion-content summary {
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #updates .accordion-content details {
+      margin-top: 10px;
+    }
+
+
+
+
+
+
+
+    /* Feedback section */
+    #feedback {
+      margin: 10px auto;
+      text-align: center;
+      background-color: grey;
+    }
+
+    #feedback h2 {
+      padding: 30px 0;
+      color: purple;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+
+
+    #feedback p {
+      font-size: 24px;
+      line-height: 1.5;
+      color: lavender;
+      margin-bottom: 40px;
+    }
+
+    #feedback form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #feedback label {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #feedback input[type="text"],
+    #feedback input[type="email"],
+    #feedback textarea {
+      padding: 10px;
+      font-size: 20px;
+      text-align: center;
+      border: 1px solid orange;
+      border-radius: 5px;
+      width: 250px;
+      max-width: 750px;
+      margin-bottom: 20px;
+    }
+
+    #feedback textarea {
+      height: 75px;
+      width: 250px;
+      max-width: 750px;
+    }
+
+    .ratings {
+      margin-bottom: 40px;
+    }
+
+    .ratings h3 {
+      color: gold;
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+    }
+
+    .stars input[type="radio"] {
+      display: none;
+    }
+
+    .stars label {
+      font-size: 48px;
+      color: white;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .stars label:hover,
+    .stars label:hover~label,
+    .stars input[type="radio"]:checked~label {
+      color: gold;
+    }
+
+    #feedback button {
+      font-size: 24px;
+      padding: 20px 50px;
+      border-radius: 4px;
+      width: 50%;
+      height: 50px;
+      border: none;
+      background-color: darkblue;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    #feedback button:hover {
+      background-color: #0077be;
+    }
+
+    .join-team {
+      margin-top: 40px;
+    }
+
+    .join-team h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .join-team p {
+      font-size: 1.5rem;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    .join-team a {
+      color: #1e90ff;
+      text-decoration: none;
+      border-bottom: 1px dotted #1e90ff;
+      transition: border-bottom 0.3s ease;
+    }
+
+    .join-team a:hover {
+      border-bottom: 1px solid #1e90ff;
+    }
+
+
+    input[type="text"],
+    textarea {
+      resize: none;
+    }
+
+
+    /* Styles for Support Us section */
+
+    #support-us {
+      margin: 0;
+      background-color: darkgoldenrod;
+      padding: 40px 10px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #support-us h2 {
+      text-align: center;
+      color: azure;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    #support-us p {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    #support-us .donation-methods {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    #support-us .donation-method {
+      margin: 0 10px 20px;
+      text-align: center;
+    }
+
+    #support-us .donation-method img {
+      width: 100px;
+      height: 100px;
+    }
+
+    #support-us .donation-method p {
+      color: blue;
+      margin-top: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .show {
+      display: block;
+      font-size: 36px;
+      color: #ffffff;
+      background-color: #005ea5;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      margin: 0 auto;
+      max-width: 500px;
+    }
+
+
+    /* Footer styling */
+    footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: black;
+      color: white;
+      padding: 30px 0;
+    }
+
+    footer h2 {
+      margin-bottom: 10px;
+      color: orange;
+    }
+
+    .contact-us {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .contact-us p {
+      margin-bottom: 10px;
+      color: orange;
+    }
+
+    .contact-us ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .contact-us li {
+      margin-bottom: 10px;
+    }
+
+    .contact-us a {
+      color: deepskyblue;
+      text-decoration: none;
+      border-bottom: 1px solid lightblue;
+    }
+
+    .partners {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      overflow-x: visible;
+    }
+
+    .partner {
+      margin: 10px;
+      width: calc(50% - 20px);
+      max-width: 200px;
+      background-color: white;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .partner:hover {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .partner img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .partner h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: black;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .partner p {
+      margin: 0;
+      font-size: 18px;
+      color: gray;
+      text-align: center;
+      overflow-wrap: break-word;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .partner:hover p {
+      max-height: 200px;
+      overflow: auto;
+    }
+
+
+    @media screen and (max-width: 768px) {
+      footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: black;
+        color: white;
+        padding: 20px 0px;
+      }
+
+      footer h2 {
+        color: orange;
+      }
+
+      .contact-us {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .contact-us p {
+        margin-bottom: 10px;
+        color: orange;
+      }
+
+      .contact-us ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .contact-us li {
+        margin-bottom: 10px;
+      }
+
+      .contact-us a {
+        color: deepskyblue;
+        text-decoration: none;
+        border-bottom: 1px solid lightblue;
+      }
+
+      .partners {
+        display: flex;
+        width: 100%;
+        
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .partners h2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .partner {
+        margin: 10px;
+        width: calc(50% - 20px);
+        max-width: 200px;
+        height: 250px;
+        background-color: white;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+
+
+
+      .partner:hover {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .partner img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+
+
+      .partner h3 {
+        margin-top: 0;
+        font-size: 18px;
+        color: black;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .partner p {
+        margin: 0;
+        font-size: 14px;
+        color: gray;
+        text-align: center;
+        overflow-wrap: break-word;
+        max-height: 0px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .partner:hover p {
+        max-height: 300px;
+        overflow: auto;
+      }
+
+      .copyright {
+        margin: 10px 0;
+        text-align: center;
+        font-size: 16px;
+        color: whitesmoke;
+      }
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+
+  <header>
+    <div class="logo-container">
+      <img src="/Obondium Workspace /obondiumworkspacelogo.jpg" alt="logo Image">
+      <h1 id="logo-name">Obondium Workspace</h1>
+    </div>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="nav-toggle-label">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <nav>
+      <ul>
+        <li><a href="#about-us">About Us</a></li>
+        <li><a href="#our-project">Our Project</a></li>
+        <li><a href="#join-us">Join Us</a></li>
+        <li><a href="#updates">Updates</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+        <li><a href="#support-us">Support Us</a></li>
+        <li><a href="#contact-us">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <section id="hero">
+      <details>
+        <summary>
+          <h1>Welcome to our Workspace</h1>
+        </summary>
+        <div class="content">
+          <h3>Who are we?</h3>
+          <p>We are a team of collaborators dedicated to designing and developing an innovative e-commerce and listing website from scratch.</p>
+        </div>
+        <div>
+          <h3>What do we do here?</h3>
+          <p>Obondium Workspace is the central hub for our team's collaboration on the Obondium Marketplace project. This is where we meet to discuss ideas, track progress, and share updates.</p>
+        </div>
+        <div>
+          <h3>Why should you join us?</h3>
+          <p>If you're passionate about creating positive change and want to be part of an exciting project, Obondium Workspace is the perfect place for you. Join our team and be a part of something great!</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="our-project">
+      <details>
+        <summary>
+          <h1>Our Project</h1>
+          <div id="countdown">
+            <h3>Time elapsed since launch:</h3>
+            <div id="countdown-container">
+              <div class="countdown-item">
+                <div class="countdown-value">
+                  <span id="days"></span>
+                </div>
+                <div class="countdown-label">
+                  Days
+                </div>
+              </div>
+              <div class="countdown-item">
+                <div class="countdown-value">
+                  <span id="hours"></span>
+                </div>
+                <div class="countdown-label">
+                  Hours
+                </div>
+              </div>
+              <div class="countdown-item">
+                <div class="countdown-value">
+                  <span id="minutes"></span>
+                </div>
+                <div class="countdown-label">
+                  Minutes
+                </div>
+              </div>
+              <div class="countdown-item">
+                <div class="countdown-value">
+                  <span id="seconds"></span>
+                </div>
+                <div class="countdown-label">
+                  Seconds
+                </div>
+              </div>
+            </div>
+          </div>
+        </summary>
+
+        <div class="content">
+          <h2>Introducing Obondium Marketplace Hub</h2>
+          <p>We are a modern e-commerce and listings platform that seamlessly connects buyers and sellers. Our goal is to provide a safe and reliable platform that enables businesses and individuals to sell their products and services, while offering consumers a personalized shopping experience.</p>
+          <p><strong style="font-size: 30px;">Our platform features:</stong>
+          </p>
+          <ul>
+            <li><strong>Advanced search and filtering options:</strong> Planned feature that will allow users to search for products and services using a variety of parameters and filter results by price, category, and other attributes.</li>
+            <li><strong>User-friendly product pages with detailed information and reviews:</strong> Planned feature that will provide comprehensive information about each item, including images, specifications, and customer reviews.</li>
+            <li><strong>Secure payment gateways:</strong> Planned feature that will offer multiple payment options, all of which will be secure and reliable.</li>
+            <li><strong>Personalized shopping experience using machine learning and AI:</strong> Planned feature that will use algorithms to tailor product recommendations and search results to each individual user.</li>
+            <li><strong>Integration with social media platforms:</strong> Planned feature that will allow users to share products and services on social media and offer social media login options for a seamless user experience.</li>
+            <li><strong>Flexible shipping and delivery options:</strong> Planned feature that will allow sellers to offer a variety of shipping and delivery options to meet the needs of different customers.</li>
+            <li><strong>Customizable seller profiles and dashboards:</strong> Planned feature that will enable sellers to create personalized profiles and dashboards to manage their products, sales, and customer interactions.</li>
+            <li><strong>24/7 customer support:</strong> Planned feature that will offer round-the-clock support to ensure that all users have a positive experience.</li>
+            <li><strong>Mobile responsiveness:</strong> Planned feature that will optimize the platform for mobile devices, allowing users to browse and shop on the go.</li>
+            <li><strong>Multi-language support:</strong> Planned feature that will support multiple languages, making the platform accessible to a wider audience.</li>
+            <li><strong>Inventory management tools:</strong> Planned feature that will enable sellers to easily manage their inventory and track their sales using intuitive tools.</li>
+            <li><strong>Automated marketing tools:</strong> Planned feature that will offer automated marketing tools to help sellers promote their products and reach their target audience more effectively.</li>
+            <li><strong>Customizable storefronts:</strong> Planned feature that will enable sellers to customize their storefronts to showcase their brand and products, creating a unique and engaging shopping experience for customers.</li>
+            <li><strong>In-app messaging:</strong> Planned feature that will allow buyers and sellers to communicate with each other directly through in-app messaging, fostering a sense of community and trust.</li>
+            <li><strong>Fraud detection and prevention:</strong> Planned feature that will use advanced algorithms and fraud detection techniques to ensure the safety and security of all transactions.</li>
+            <li><strong>Integration with third-party apps:</strong> Planned feature that will integrate with a variety of third-party apps and services, such as shipping providers and accounting software, to streamline workflows and enhance the user experience.</li>
+            <li><strong>Product recommendations:</strong> Planned feature that will use machine learning and AI to provide personalized product recommendations to customers based on their browsing and purchasing history.</li>
+            <li><strong>Analytics and reporting:</strong> Planned feature that will offer detailed analytics and reporting tools to help sellers track their performance and make data-driven decisions.</li>
+            <li><strong>Community support:</strong> Our platform will offer a range of community support features, including forums, chat rooms, and other tools for users to connect with one another, share resources, and build stronger communities.</li>
+            <li><strong>Affordable housing:</strong> Our platform will enable people and students to search for affordable housing options and communicate with providers in a secure and reliable way, helping to create stronger and more sustainable housing communities.</li>
+            <li><strong>Events and virtual events:</strong> We plan to offer a variety of events and virtual experiences for our users, including product launches, sales, workshops, and more. Our goal is to create a dynamic and engaging platform that provides valuable resources and opportunities for our community.</li>
+            <li><strong>Student-friendly housing options:</strong> We understand the unique needs and challenges faced by students in finding affordable and safe housing. Our platform will feature a range of student-friendly housing options, including shared housing, dormitories, and apartments, with a focus on affordability, safety, and convenience.</li>
+            <li><strong>Advertising:</strong> Our platform will offer advertising options for businesses and individuals, allowing them to promote their products and services to a highly targeted audience. We will use advanced data analytics and machine learning algorithms to provide personalized advertising experiences that drive engagement and conversions.</li>
+
+          </ul>
+          <h2>Our Beliefs</h2>
+          <p>At Obondium, we believe in the power of collaboration and open-source projects. We are committed to creating a platform that reflects these values and provides a safe, reliable, and collaborative space for businesses and individuals to sell their products and services.</p>
+          <h2>What project is our team working on?</h2>
+          <p>We are collaborating on Obondium Marketplace Hub, a cutting-edge e-commerce and listing website designed to connect buyers and sellers worldwide in a seamless and efficient way.</p>
+          <h2>What makes Obondium Marketplace Hub unique?</h2>
+          <p>Our platform is designed to be a safe, reliable, and collaborative space for businesses and individuals to sell their products and services, and for consumers to find and purchase what they need with ease.</p>
+          <h2>Inspiring Quotes</h2>
+          <div class="quotes-container">
+            <blockquote class="quote">
+              <p>"The only way to do great work is to love what you do."</p>
+              <cite>- Steve Jobs</cite>
+            </blockquote>
+            <blockquote class="quote">
+              <p>"Believe you can and you're halfway there."</p>
+              <cite>- Theodore Roosevelt</cite>
+            </blockquote>
+            <blockquote class="quote">
+              <p>"Success is not final, failure is not fatal: it is the courage to continue that counts."</p>
+              <cite>- Winston Churchill</cite>
+            </blockquote>
+            <blockquote class="quote">
+              <p>"If you get up in the morning and think the future is going to be better, it is a bright day. Otherwise, it's not."</p>
+              <cite>- Elon Musk</cite>
+            </blockquote>
+            <blockquote class="quote">
+              <p>"Strive not to be a success, but rather to be of value."</p>
+              <cite>- Albert Einstein</cite>
+            </blockquote>
+          </div>
+
+          <p>Thank you for your interest in our project. We look forward to sharing more details with you in the future.</p>
+          <p><span id="best-regards">Best regards, [Derick Bond/Obondium]</span></p>
+        </div>
+      </details>
+    </section>
+
+    <br><br>
+
+
+    <section id="join-us">
+      <details>
+        <summary>
+          <div class="join-us-details">
+            <h2>Join us and make Contributions</h2>
+          </div>
+        </summary>
+        <div>
+          <h3>At Obondium Workspace, we believe in creating a diverse and inclusive work environment.</h3>
+          <p>We welcome individuals from all backgrounds, whether you're an experienced developer or a recent graduate. We're looking for team members who are motivated, curious, and eager to learn.</p>
+        </div>
+        <div>
+          <h3>Who can join our team?</h3>
+          <p>To join our team, we're seeking individuals who possess strong technical skills in areas such as: <span style="color: blanchedalmond; font-size: 18px;">front-end web development (HTML, CSS, JavaScript), back-end web development (PHP, Python, Node.js), mobile app development (iOS, Android), cloud computing (AWS, Azure, Google Cloud), and data science and machine learning (Python, R)</span>>.</p>
+          * <p>Let's learn, work, and create together. Contributing to our team is simple - we offer access to our project repositories, where you can collaborate with us, contribute code, review pull requests, and more. In the future, we plan to give our team members access to even more project repositories, as well as additional resources and opportunities for growth. Join us now and become a part of our journey.</p>
+        </div>
+        <div>
+          <h3>How can I join?</h3>
+          <p>If you're interested in joining our team, please fill out the form below. We'd love to have you in!</p>
+        </div>
+        </div>
+      </details>
+
+      <section class="join-us-form">
+        <h3>Fill in this form to join our team</h3>
+        <form action="https://formsubmit.co/998d17e8cc5578798afb42a3db4eec61" method="POST">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required placeholder=""><br>
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required placeholder=""><br>
+
+          <label for="phone">Phone:</label>
+          <div class="phone-input-container">
+            <input type="tel" id="country-code" name="country-code" placeholder="+000" required>
+            <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{9}" placeholder="123 456 789" required><br>
+          </div><br>
+
+          <label for="skills">Skills:</label>
+          <textarea id="skills" name="skills" required maxlength="250"></textarea><br>
+
+          <label for="message">Message:</label>
+          <textarea id="message" name="message"></textarea><br>
+
+          <button type="submit">Submit</button><br>
+        </form>
+        <div class="join-us-message hidden success-message">
+          <p>Thank you for your interest! We will review your application and get back to you as soon as possible.</p>
+        </div>
+        <div class="join-us-message hidden error-message">
+          <p>Sorry, there was an error submitting your form. Please try again.</p>
+        </div>
+        <div class="join-us-message hidden resubmission-message">
+          <p>It seems that you have already submitted your details. We will get back to you soon.</p>
+        </div>
+      </section>
+
+    </section>
+
+
+
+    <section id="about-us">
+      <h2>About Us</h2>
+      <p id="about-us-intro">Obondium Workspace is the home of young enthusiastic innovators and an open source community, collaborating to develop Obondium Marketplace Hub and make them elaborate.</p>
+
+      <div class="team-members">
+        <h3>Our Team</h3>
+        <ul class="founder">
+          <li id="image-container">
+            <img src="/Obondium Workspace /derickbond .jpg" alt="Obondo Derick Omondi">
+            <h4>Obondo Derick Omondi</h4>
+            <p id="rank" style="color: green">Founder</p>
+            <p id="info">Marine Engineering Student at Technical University of Mombasa <br> Web Developer and Designer | Self taught.</p>
+            <div class="link">
+              <p class="fab fa-twitter"> Twitter:<a href="https://twitter.com/obondoderick">@obondoderick</a></p>
+              <p class="fab fa-linkedin"> LinkedIn:<a href="https://www.linkedin.com/in/derick-bond-234176230">@obondoderick</a></p>
+              <p class="fab fa-instagram"> Instagram:<a href="https://instagram.com/obondoderick">obondoderick</a></p>
+              <p class="fas fa-envelope"> Email:<a href="mailto:obondoderick@gmail.com">obondoderick@gmail.com</a>.</p>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="contributors">
+          <li id="image-container" id="founder">
+            <img src="/Obondium Workspace /emanuelawino.jpg" alt="Emmanuel Awino Omondi">
+            <h4>Emmanuel Awino Omondi</h4>
+            <p id="rank">Contributor</p>
+
+            <p id="info">Software Engineering Student at Multimedia University</p>
+
+            <div class="link">
+              <p> class="fab fa-twitter"> Twitter:<a href="https://twitter.com/AwinoEmanuel?t=Y94E5qHnN2POFTc8ph5Z0g&s=09">@AwinoEmanuel</a></p>
+              <p><a href=""></a></p>
+            </div>
+            <p style="color: saddlebrown">No contribution yet</p>
+
+          </li>
+
+          <li id="image-container">
+            <img src="/Obondium Workspace /markhekima.jpg" alt="Mark Hekima">
+            <h4>Mark Hekima</h4>
+            <p id="rank">Contributor</p>
+            <p id="info">Marine Engineering Student at Technical University of Mombasa <br> Web Designer and Developer | Self-taught</p>
+            <div class="link">
+              <p class="fab fa-twitter"> Twitter:<a href="https://twitter.com/Bison1_KE">@Bison1_KE</a></p>
+            </div>
+            <p style="color: saddlebrown">No contribution yet</p>
+
+          </li>
+
+          <li id="image-container">
+            <img src="/Obondium Workspace /reaganmogambi.jpg" alt="Reagan Mogambi">
+            <h4>Reagan Mogambi</h4>
+            <p id="rank">Contributor</p>
+            <p style="color: black">No contribution yet</p>
+            <p id="info">Computer Science Student at Laikipia University</p>
+            <div class="link">
+              <p class="fab fa-twitter"> Twitter:<a href="https://twitter.com/Mayienda2?t=8m2jGBTgz60ULoJFQtdkdw&s=09">@Mayienda_</a></p>
+            </div>
+            <p style="color: saddlebrown">No contribution yet</p>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+
+    <section id="updates">
+      <h2>Updates</h2>
+
+      <!-- Accordion for current status -->
+      <h3 class="accordion-header">Current Status</h3>
+      <div class="accordion-content">
+        <p>Updates on the progress of the project and any milestones achieved will appear here.</p>
+        <ul>
+          <li><b>29th April 2023: Launch of the Obondium Workspace Webpage<b></li>
+          <li><b>29th April 2023: Launch of Obondium Project<b></li>
+          <!--   <li>Insert status update here</li> -->
+        </ul>
+      </div>
+
+      <!-- Accordion for recent progress updates -->
+      <h3 class="accordion-header">Recent Progress Updates</h3>
+      <div class="accordion-content">
+        <p>Summary of recent accomplishments, challenges, and future plans will appear here..</p>
+        <ul>
+          <!--  <li>Insert progress update here</li>
+          <li>Insert progress update here</li>
+          <li>Insert progress update here</li> -->
+        </ul>
+      </div>
+
+      <!-- Link to project -->
+      <h3 class="accordion-header">Project Link</h3>
+      <div class="accordion-content">
+        <p>Our project is currently under development. Once it is available online, you will be able to find its link here. Keep Checking.</p>
+      </div>
+
+
+      <!-- Accordion for future plans and goals -->
+      <h3 class="accordion-header">Future Plans and Goals</h3>
+      <div class="accordion-content">
+        <details>
+          <summary>Check our future prospects<summary>
+              <div>Our future plans</div>
+
+              <ul>
+                <li>Expanding the platform's reach to new markets and regions by establishing partnerships with businesses and organizations in those areas, as well as through targeted advertising and marketing campaigns</li>
+                <li>Incorporating new features and technologies to enhance the user experience, such as advanced search and filtering options, personalized product recommendations, and seamless integration with social media platforms</li>
+                <li>Partnering with more businesses and sellers to offer a wider range of products and services, as well as to attract more customers to the platform</li>
+                <li>Developing a mobile app for convenient and on-the-go access to the platform, as well as to increase engagement with users</li>
+                <li>Providing secure and efficient payment options for both buyers and sellers, such as escrow services and cryptocurrency payments</li>
+                <li>Implementing measures to ensure user privacy and data protection, such as strong encryption protocols and regular security audits</li>
+                <li>Building a strong and active community around the platform through social media engagement, user forums, and events such as product launches and promotions</li>
+
+                <p>After the completion of this platform, our plans and goals include:</p>
+
+                <li>Regularly updating and maintaining the platform to ensure optimal performance, stability, and security</li>
+                <li>Providing ongoing technical support and assistance to users to address any issues or concerns they may have</li>
+                <li>Expanding our team to include more talented individuals to help grow and develop the platform, as well as to offer more specialized support to users</li>
+                <li>Collaborating with other businesses and organizations to create a thriving e-commerce community that benefits all members</li>
+                <li>Exploring new and innovative ways to improve the platform and offer more value to users, such as through the use of AI and machine learning algorithms to optimize search and recommendation algorithms</li>
+                <li>Staying up-to-date with the latest trends and technologies in the e-commerce industry to remain competitive and innovative in our approach</li>
+              </ul>
+        </details>
+      </div>
+    </section>
+
+
+    <section id="feedback">
+      <h2>Your feedback is very important</h2>
+      <p>Our team will be glad to hear from you. Leave your comment or ask your questions. We care about your opinions.</p>
+
+      <form class="feedback-form" action="https://formsubmit.co/998d17e8cc5578798afb42a3db4eec61" method="POST">
+        <div class="form-field">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required placeholder="Your name...">
+        </div>
+        <div class="form-field">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required placeholder="Your email...">
+        </div>
+        <div class="form-field">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required placeholder="Let's hear from you..."></textarea>
+        </div>
+
+        <div class="form-field ratings">
+          <h3>Rate our project:</h3>
+          <div class="stars">
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label class="star-label" for="star1" title="Terrible">&#9733;</label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label class="star-label" for="star2" title="Poor">&#9733;</label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label class="star-label" for="star3" title="Average">&#9733;</label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label class="star-label" for="star4" title="Good">&#9733;</label>
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label class="star-label" for="star5" title="Excellent">&#9733;</label>
+          </div>
+        </div>
+
+        <button class="send-button" type="submit">Send</button>
+      </form>
+    </section>
+
+
+    <section id="support-us">
+      <details>
+        <summary>
+          <h2>Support Us</h2>
+          <p>Your support helps us achieve our goals. We accept the following methods of donation:</p>
+        </summary>
+        <div class="donation-methods">
+          <div class="donation-method">
+            <a href="https://www.mchanga.africa/fundraiser/68835" target="">
+              <img src="/Obondium Workspace /mchangawide.png" alt="M-Changa">Donate Now
+            </a>
+          </div>
+
+          <div class="donation-method disabled">
+            <a href="#">
+              <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" alt="PayPal">
+            </a>
+            <p>PayPal (coming soon)</p>
+          </div>
+
+          <div class="donation-method disabled">
+            <a href="#">
+              <img src="/Obondium Workspace /donorbox.png" alt="Donorbox">
+            </a>
+            <p>Donorbox (coming soon)</p>
+          </div>
+        </div>
+
+        <p id="thank-you" class="hidden">Thank you for your generosity and support!</p>
+      </details>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="contact-us">
+      <h2>Contact Us</h2>
+      <p>Get in touch with our team.</p>
+      <ul>
+        <li class="fas fa-envelope"> Email: <a href="mailto: obondiumworkspace@gmail.com">obondiumworkspace@gmail.com</a></li>
+        <li class="fab fa-twitter"> Twitter: <a href="https://twitter.com/Obondium_Co?t=SW1LXi-vKJjWwlDStCjqGg&s=09">@Obondium_Co</a></li>
+        <li class="fab fa-facebook"> Facebook: <a href="https://www.facebook.com/profile.php?id=100089932380959&mibextid=ZbWKwL">Obondium</a></li>
+      </ul>
+    </div>
+
+    <div class="partners">
+      <h2>Our Partners</h2>
+      <div class="partner">
+        <img src="/Obondium Workspace /obondiumlogo.jpg" alt="Partner 1 Logo">
+        <div class="partner-details">
+          <h3>Obondium</h3>
+          <p>The Parent Company</p>
+        </div>
+      </div>
+      <div class="partner">
+        <img src="path/to/partner2-image" alt="Partner 2 Logo">
+        <div class="partner-details">
+          <h3>No patner yet!</h3>
+          <p> We welcome like-minded patners Become our first partner</p>
+        </div>
+      </div>
+      <!-- add more partner divs as needed -->
+    </div>
+    <div class="copyright">
+      <p>&copy; Obondium 2023. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+
+
+  <!-- JavaScript code goes here -->
+  <script>
+    // Select the header and main elements
+    const header = document.querySelector('header');
+    const mainElem = document.querySelector('main');
+
+    // Get the height of the header using the offsetHeight property
+    const headerHeight = header.offsetHeight;
+
+    // Set the margin-top of the main element to the height of the header
+    mainElem.style.marginTop = `${headerHeight}px`;
+
+    function getRandomColor() {
+      const shadesOfWhite = [
+    '#f7f7f7',
+    '#f0f0f0',
+    '#e9e9e9',
+    '#e2e2e2',
+    '#dbdbdb',
+    '#d4d4d4',
+    '#cccccc',
+    '#c5c5c5',
+    '#bebebe',
+    '#b7b7b7',
+    '#b0b0b0',
+    '#a9a9a9',
+    '#a2a2a2',
+    '#9b9b9b',
+    '#949494',
+    '#8c8c8c',
+    '#858585',
+    '#7e7e7e',
+    '#777777',
+    '#707070'
+  ];
+
+      // generate a random index between 0 and the length of the shadesOfWhite array
+      const randomIndex = Math.floor(Math.random() * shadesOfWhite.length);
+
+      // return the color at the randomly generated index
+      return shadesOfWhite[randomIndex];
+    }
+
+    // set the initial background color of the main element
+    mainElem.style.backgroundColor = '#eee';
+
+    // add event listener to change the background color on click
+    mainElem.addEventListener('click', function() {
+      // generate a random shade of white/grey
+      const randomColor = getRandomColor();
+
+      // set the background color of the main element to the random shade
+      mainElem.style.backgroundColor = randomColor;
+    });
+
+
+
+
+    const navToggle = document.getElementById('nav-toggle');
+    const nav = document.querySelector('nav');
+
+    document.addEventListener('click', function(event) {
+      // Check if the click event occurred outside the navigation menu and the toggle checkbox
+      if (!nav.contains(event.target) && event.target !== navToggle) {
+        // Check if the navigation menu is currently open
+        if (navToggle.checked) {
+          // Uncheck the toggle checkbox to close the navigation menu
+          navToggle.checked = false;
+        }
+      }
+
+      // Check if a navigation link was clicked
+      if (event.target.tagName === 'A' && navToggle.checked) {
+        // Uncheck the toggle checkbox to close the navigation menu
+        navToggle.checked = false;
+      }
+    });
+
+    navToggle.addEventListener('click', function(event) {
+      // Check if the toggle checkbox was clicked again
+      if (event.target === navToggle && !navToggle.checked) {
+        // Uncheck the toggle checkbox to close the navigation menu
+        navToggle.checked = false;
+      }
+    });
+
+
+
+    // Set the launch date and time in EAT timezone
+    const launchDate = new Date("April 29, 2023 00:00:00 GMT+0300");
+
+    // Get the countdown container
+    const countdownContainer = document.getElementById("countdown-container");
+
+    // Update the countdown timer every second
+    setInterval(() => {
+      // Calculate the time difference between now and the launch date
+      const now = new Date();
+      const timeDiff = launchDate.getTime() - now.getTime();
+
+      // Calculate the remaining days, hours, minutes, and seconds
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      // Update the countdown timer in the DOM
+      document.getElementById("days").innerText = Math.abs(days);
+      document.getElementById("hours").innerText = Math.abs(hours);
+      document.getElementById("minutes").innerText = Math.abs(minutes);
+      document.getElementById("seconds").innerText = Math.abs(seconds);
+    }, 1000);
+
+
+
+const countryCodeInput = document.getElementById('country-code');
+const phoneNumberInput = document.getElementById('phone-number');
+
+countryCodeInput.addEventListener('input', (event) => {
+  const countryCode = event.target.value.slice(0, 3);
+  event.target.value = countryCode;
+});
+
+phoneNumberInput.addEventListener('input', (event) => {
+  const phoneNumber = event.target.value.slice(0, 9);
+  event.target.value = phoneNumber;
+});
+
+// Get form and message elements
+const form = document.querySelector('.join-us-form form');
+const successMessage = document.querySelector('.join-us-message.success-message');
+const errorMessage = document.querySelector('.join-us-message.error-message');
+const resubmissionMessage = document.querySelector('.join-us-message.resubmission-message');
+
+// Add event listener for form submission
+form.addEventListener('submit', function (event) {
+  // Prevent default form submission behavior
+  event.preventDefault();
+
+  // Get form data
+  const formData = new FormData(form);
+
+  // Check if phone number and country code are within limits
+  const countryCode = formData.get('country-code');
+  const phoneNumber = formData.get('phone-number');
+  if (countryCode.length > 3 || phoneNumber.length > 9) {
+    alert('Please enter a valid phone number and country code.');
+    return;
+  }
+
+  // Check if message length is within limit
+  const message = formData.get('message');
+  if (message.length > 250) {
+    alert('Please enter a message that is 250 words or less.');
+    return;
+  }
+
+  // Send POST request to form endpoint
+  fetch(form.action, {
+    method: form.method,
+    body: formData
+  })
+    .then(response => {
+      // Handle response from server
+      if (response.ok) {
+        // Show success message
+        successMessage.classList.remove('hidden');
+        // Hide form after successful submission
+        form.classList.add('hidden');
+        setTimeout(function () {
+          form.reset();
+          form.classList.remove('hidden');
+          successMessage.classList.add('hidden');
+        }, 1000);
+      } else if (response.status === 409) {
+        // Show resubmission message
+        resubmissionMessage.classList.remove('hidden');
+        setTimeout(function () {
+          resubmissionMessage.classList.add('hidden');
+        }, 4000);
+      } else {
+        // Show error message
+        errorMessage.classList.remove('hidden');
+        setTimeout(function () {
+          errorMessage.classList.add('hidden');
+        }, 4000);
+      }
+    })
+    .catch(error => {
+      // Show error message
+      errorMessage.classList.remove('hidden');
+      setTimeout(function () {
+        errorMessage.classList.add('hidden');
+      }, 4000);
+    });
+});
+
+// Show success message
+successMessage.classList.remove('hidden');
+setTimeout(function () {
+  successMessage.classList.add('hidden');
+}, 4000);
+
+// Show error message
+errorMessage.classList.remove('hidden');
+setTimeout(function () {
+  errorMessage.classList.add('hidden');
+}, 4000);
+
+// Show resubmission message
+resubmissionMessage.classList.remove('hidden');
+setTimeout(function () {
+  resubmissionMessage.classList.add('hidden');
+}, 4000);
+
+
+
+
+
+const joinUsForm = document.querySelector('.join-us-form');
+
+joinUsForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Add your form submission code here
+
+});
+
+
+
+
+
+
+
+
+
+
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    });
+
+
+    const teamMembers = document.querySelectorAll('.team-members li');
+
+    teamMembers.forEach(member => {
+      member.addEventListener('click', () => {
+        member.querySelector('.link').classList.toggle('expanded');
+      });
+    });
+
+
+
+
+
+    // Get the donate now link
+    const donateNowLink = document.querySelector('.donation-method a');
+
+    // Add event listener to the donate now link
+    donateNowLink.addEventListener('click', function(event) {
+      // Show the thank you message
+      const thankYouMessage = document.querySelector('#thank-you');
+      thankYouMessage.classList.remove('hidden');
+      thankYouMessage.classList.add('show');
+
+      // Reset the thank you message after 5 seconds
+      setTimeout(function() {
+        thankYouMessage.classList.remove('show');
+        thankYouMessage.classList.add('hidden');
+      }, 5000);
+    });
+
+    // Get the donation methods
+    const donationMethods = document.querySelectorAll('.donation-method');
+
+    // Add event listener to each donation method
+    donationMethods.forEach(method => {
+      method.addEventListener('click', function(event) {
+        // Prevent the default link behavior
+        event.preventDefault();
+
+        // Disable the donation method if it's not M-Changa
+        if (!method.classList.contains('disabled')) {
+          method.classList.add('disabled');
+        }
+
+        // Click the donate now link
+        donateNowLink.click();
+      });
+    });
+  </script>
+
+</body>
+
+</html>
