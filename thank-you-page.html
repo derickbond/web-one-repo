@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Obondium Workspace - Thank You</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* General styling */
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      background-color: #f2f2f2;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #203647;
+      color: #fff;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2em;
+      font-weight: bold;
+      text-align: center;
+      margin: 0;
+      overflow: hidden;
+      /* hides the letters before the animation starts */
+    }
+
+    h1 span {
+      display: inline-block;
+      animation-name: slideIn;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      opacity: 0;
+    }
+
+    /* Defines the animation */
+    @keyframes slideIn {
+      0% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateX(0%);
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-top: 40px;
+      color: #FFA500;
+      animation-name: fadeInOut;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.5;
+      }
+    }
+
+
+
+    main {
+      margin: 20px;
+    }
+
+    p {
+      margin-bottom: 50px;
+      font-size: 24px;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #203647;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    a.button:hover {
+      background-color: #fff;
+      color: #203647;
+    }
+
+    /* Thank you message styling */
+    #thank-you {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      animation: slide-up 1.5s ease-in-out;
+    }
+
+    #message {
+      margin: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* Footer styling */
+    footer {
+      background-color: #203647;
+      text-align: center;
+      padding: 30px;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 20px;
+      color: white;
+    }
+
+    /* Animation effects */
+    @keyframes slide-up {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+.button {
+  margin-bottom: 20px;
+  animation: pulse 1.5s ease-in-out infinite;
+  animation-delay: 3s; /* Add a delay of 5 seconds */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <h1><span>Obondium</span> <span>Workspace</span></h1>
+  </header>
+
+  <main>
+    <section id="thank-you">
+      <h2>Thank you for your submission!</h2>
+      <div id="message"></div>
+      <p>We will get back to you as soon as possible. In the meantime, feel free to browse our website to learn more about Obondium Workspace.</p>
+      <a href="https://obondium-workspace.netlify.app/index.html" class="button">Go back to homepage</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Obondium. All rights reserved.</p>
+  </footer>
+
+
+</body>
+
+</html>
